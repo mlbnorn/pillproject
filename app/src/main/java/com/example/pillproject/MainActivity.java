@@ -76,15 +76,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return false;
     }
 
-
     public void assignElements()
     {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);               // create bottom navigation
         fragmentManager = getSupportFragmentManager();                      // create new fragment manager
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
-
     }
-
 
 }
