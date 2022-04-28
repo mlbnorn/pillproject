@@ -2,4 +2,13 @@
     <string name="app_name">pillproject</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_compare_fragment">Hello compare fragment</string>
+    <string name="hello_search_fragment">Hello search fragment</string>
+    <string name="hello_home_fragment">Hello home fragment</string>
+
+    <!--icon names-->
+    <string name="pill_check">Pill Check</string>
+    <string name="compare">Compare</string>
+    <string name="search">Search</string>
+    <string name="home">Home</string>
 </resources>
