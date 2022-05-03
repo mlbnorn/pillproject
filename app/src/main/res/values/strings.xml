@@ -11,4 +11,14 @@
     <string name="compare">Compare</string>
     <string name="search">Search</string>
     <string name="home">Home</string>
+
+
+    <!--compare fragment text inputs-->
+    <string name="first_med_input">Enter First Medication</string>
+    <string name="second_med_input">Enter Second Medication</string>
+    <string name="action_checker">Check Interactions</string>
+
+
+
+
 </resources>
