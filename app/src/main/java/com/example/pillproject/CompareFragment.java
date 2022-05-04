@@ -2,63 +2,63 @@ package com.example.pillproject;
 
 import android.os.Bundle;
 //import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
+public class CompareFragment extends Fragment
+{
+    Button checkPillsButton;
+    EditText med1EditText;
+    EditText med2EditText;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CompareFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class CompareFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public CompareFragment() {
+    public CompareFragment()
+    {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CompareFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CompareFragment newInstance(String param1, String param2) {
-        CompareFragment fragment = new CompareFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_compare, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        View CompareView = inflater.inflate(R.layout.fragment_compare,container,false);
+        assignElements(CompareView);
+        setListeners();
+        return CompareView;
+    }
+
+    protected void assignElements(View thisView)
+    {
+        checkPillsButton = (Button) thisView.findViewById(R.id.button_check_pills);
+        med1EditText = (EditText) thisView.findViewById(R.id.med1);
+        med2EditText = (EditText) thisView.findViewById(R.id.med2);
+    }
+
+    protected void setListeners()
+    {
+        checkPillsButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Log.i("test","yesy");
+               String m1text = med1EditText.getText().toString();
+               String m2text = med2EditText.getText().toString();
+               //check for working listener
+               Toast.makeText(getActivity(),m1text+" "+m2text,Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
