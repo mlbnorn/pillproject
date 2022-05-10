@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.bottom_nav_menu, menu);
+        bottomNavigationView.setSelectedItemId(R.id.compare);
+
         return true;
     }
     public boolean onNavigationItemSelected(@NonNull MenuItem item)
