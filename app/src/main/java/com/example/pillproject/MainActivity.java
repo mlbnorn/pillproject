@@ -4,17 +4,25 @@ import java.io.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import android.graphics.ColorSpace;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import java.util.ArrayList;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     BottomNavigationView bottomNavigationView;
     FragmentManager fragmentManager;                   // create new fragment manager
+    //RecyclerView rcv;
 
 
     @Override
@@ -23,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         assignElements();
+
 
         fragmentManager.beginTransaction()
                 .replace(R.id.flFragment,compareFragment)
@@ -40,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.bottom_nav_menu, menu);
+
         return true;
     }
     public boolean onNavigationItemSelected(@NonNull MenuItem item)
@@ -76,12 +86,22 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return false;
     }
 
+    private Object dataqueue()
+    {
+        ArrayList<ColorSpace.Model> holder=new ArrayList<ColorSpace.Model>();
+        return holder;
+
+    }
+
+
     public void assignElements()
     {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);               // create bottom navigation
         fragmentManager = getSupportFragmentManager();                      // create new fragment manager
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        //rcv = (RecyclerView) findViewById(R.id.recview);
 
     }
+
 
 }

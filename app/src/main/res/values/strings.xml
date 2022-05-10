@@ -17,8 +17,9 @@
     <string name="first_med_input">Enter First Medication</string>
     <string name="second_med_input">Enter Second Medication</string>
     <string name="action_checker">Check Interactions</string>
-
-
+    <string name="search_hint">Search...</string>
+    <string name="searchbar" />
+    <string name="action_search" />
 
 
 </resources>
