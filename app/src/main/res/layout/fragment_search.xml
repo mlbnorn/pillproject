@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:gravity="center_horizontal"
-        android:text="Search Fragment" />
+        android:text="Search Fragment :)" />
 
     <ListView
         android:id="@+id/listView"
