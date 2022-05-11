@@ -2,9 +2,11 @@ package com.example.pillproject;
 
 //import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -67,6 +69,25 @@ public class SearchFragment extends Fragment
             {
                 dataListAdapter.getFilter().filter(newText);
                 return false;
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l)
+            {
+                String item = (String) adapterView.getItemAtPosition(pos);
+                Log.i("TESTTSETS",item);
+
+                Bundle b = new Bundle();
+                b.putString("drug_id",item);
+                InfoFragment infoFragment = new InfoFragment();
+                infoFragment.setArguments(b);
+
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.flFragment,infoFragment)
+                        .addToBackStack("name")
+                        .commit();
             }
         });
     }
