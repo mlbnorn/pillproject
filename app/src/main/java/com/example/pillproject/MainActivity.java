@@ -1,6 +1,8 @@
 package com.example.pillproject;
 
 import java.io.*;
+import java.util.ArrayList;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -8,14 +10,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
-    BottomNavigationView bottomNavigationView;
-    FragmentManager fragmentManager;                   // create new fragment manager
 
+    // Frontend Components
+    HomeFragment homeFragment;
+    CompareFragment compareFragment;
+    SearchFragment searchFragment;
+    BottomNavigationView bottomNavigationView;
+
+    // Backend Components
+    FragmentManager fragmentManager;
+    ArrayList<Drug> dataList;
+    DatabaseHelper dbh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -23,17 +35,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         assignElements();
+        setCurrentFragment(compareFragment);
 
+        fetchData();
+    }
+
+    private void setCurrentFragment(Fragment fragment)
+    {
         fragmentManager.beginTransaction()
-                .replace(R.id.flFragment,compareFragment)
+                .replace(R.id.flFragment,fragment)
                 .setReorderingAllowed(true)
                 .addToBackStack("name")
                 .commit();
     }
-
-    HomeFragment homeFragment = new HomeFragment();
-    CompareFragment compareFragment= new CompareFragment();
-    SearchFragment searchFragment = new SearchFragment();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -44,46 +58,45 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         return true;
     }
+
     public boolean onNavigationItemSelected(@NonNull MenuItem item)
     {
-        int id = item.getItemId();
-
-        switch (id)
+        switch (item.getItemId())
         {
-            case R.id.home:
-                fragmentManager.beginTransaction()
-                        .replace(R.id.flFragment,homeFragment)
-                        .setReorderingAllowed(true)
-                        .addToBackStack("name")
-                        .commit();
-                return true;
-
-            case R.id.compare:
-                fragmentManager.beginTransaction()
-                        .replace(R.id.flFragment,compareFragment)
-                        .setReorderingAllowed(true)
-                        .addToBackStack("name")
-                        .commit();
-                return true;
-
-            case R.id.search:
-                Log.i("Navigation", "clicked search");
-                fragmentManager.beginTransaction()
-                    .replace(R.id.flFragment,searchFragment)
-                    .setReorderingAllowed(true)
-                    .addToBackStack("name")
-                    .commit();
-            return true;
+            case R.id.home: setCurrentFragment(homeFragment); return true;
+            case R.id.compare: setCurrentFragment(compareFragment); return true;
+            case R.id.search: setCurrentFragment(searchFragment); return true;
         }
         return false;
     }
 
     public void assignElements()
     {
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);               // create bottom navigation
-        fragmentManager = getSupportFragmentManager();                      // create new fragment manager
+        homeFragment = new HomeFragment();
+        compareFragment= new CompareFragment();
+        searchFragment = new SearchFragment();
+
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        fragmentManager = getSupportFragmentManager();
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
     }
 
+    private void fetchData()
+    {
+        dbh = new DatabaseHelper(this);
+        try {
+            dbh.createDataBase();
+            dbh.openDataBase();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        dataList = dbh.getDrugs(this);
+    }
+
+    public ArrayList<Drug> getDataList() {
+        return dataList;
+    }
 }
